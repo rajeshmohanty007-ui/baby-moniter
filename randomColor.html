@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="display: flex;justify-content: center;align-items: center;">
+    <div id="box" onclick="change()" style="height: 50vh; width: 50vw; border: 2px solid black; text-align: center;">
+        click me to change my colour
+    </div>
+    <script>
+        function change(){
+            let str = "ABCDEF0123456789"
+            let code = "#" ;
+            for(let i=1; i<7; i++){
+                code += str[Math.floor(Math.random()*15)]
+            }
+            document.getElementById('box').style.backgroundColor = code;
+        }
+        change()
+    </script>
+</body>
+</html>

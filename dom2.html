@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <ul id="list">
+        <li>Rajesh</li>
+    </ul>
+    <input type="text" placeholder="Enter her name" id="GF">
+    <button onclick="addHer()">Her name</button>
+    <script>
+        
+         function addHer()  {
+            let gf = document.getElementById('GF').value;
+            if(gf){
+            const li = document.createElement("li");
+            li.innerText = gf;
+            document.getElementById('list').appendChild(li);
+         }}
+    </script>
+</body>
+</html>

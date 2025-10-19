@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .img {
+            width: 100%;
+            transition: transform 2s ease-in-out reverse;
+        }
+        .inDiv {
+            display: flex;
+            justify-content: space-between;
+        }
+        .Outdiv{
+            width: 400px;
+            opacity: 0;
+            transform: translateX(100px);
+        }
+        .show {
+            opacity: 1;
+            transform: translateX(0);
+            transition: transform 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <button onclick="generate()" id="gen">Generate Meme</button>
+    <div id="container"></div>
+    <script>
+        const images = [
+            'images/photu01.jpg',
+            'images/photu02.jpg',
+            'images/photu03.jpg'
+        ]
+        const text = ['Bottle', 'House','Tree']
+        function generate() {
+            const Outdiv = document.createElement('div');
+            const n = Math.floor(Math.random()*3)
+            Outdiv.innerHTML = `<div>
+        <div><img class="img" src="${images[n]}" alt=""></div>
+        <div class="inDiv"><p>${text[n]}</p><button class="clear">delete</button></div>
+    </div>`;
+            Outdiv.classList.add("Outdiv");
+            setTimeout(
+                () => {Outdiv.classList.add("show"), 50}
+            )
+            document.getElementById('container').appendChild(Outdiv)
+            Outdiv.querySelector(".clear").addEventListener(
+                'click', () => {Outdiv.remove()}
+            )
+        Outdiv.scrollIntoView({
+            behavior:"smooth",
+            inline:"center",
+            block:"center"
+        })
+        }
+        document.addEventListener(
+            "keydown", (event) => {
+                if(event.code === "space"){generate();}
+            }
+        )
+    </script>
+</body>
+</html>

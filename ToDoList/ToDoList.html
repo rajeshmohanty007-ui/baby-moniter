@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: poppins;
+        }
+
+        #popup {
+            position: fixed;
+            z-index: 5;
+            height: 50vh;
+            width: 80vw;
+            top: 25vh;
+            left: 10vw;
+            background-color: rgba(65, 64, 64, 0.966);
+            display: none;
+        }
+
+        #close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            background-color: rgb(148, 146, 146);
+            cursor: pointer;
+            z-index: 6;
+            height: 20px;
+            width: 20px;
+            line-height: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            display: inline;
+            background-color: rgb(104, 103, 103);
+            padding: 5px;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+
+        ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .active {
+            background-color: rgb(20, 20, 20);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div onclick="popup()"
+        style="width: 100px; height: 100px; border-radius: 50px;background-color: grey;font-size: 7rem; text-align: center;color: white; line-height: 100px;cursor: pointer;">
+        +</div>
+    <div id="popup">
+        <div id="close">X</div>
+        <div style="height: 30vh; line-height: 30%; text-align: center; padding: 20px; color: white;">What do you want to add?</div>
+        <div style="display: flex; justify-content: center;">
+            <div>
+                <input type="text" id="task">
+            </div>
+            <button onclick="add()">Add</button>
+        </div>
+    </div>
+    <h1 id="h1">My Tasks</h1>
+    <h1 id="h2">Completed</h1>
+    <h1 id="h3">Deleted</h1>
+    <div style="position: relative; display: flex; width: 100vw;">
+        <ul id="list"></ul>
+        <ul id="Dlist" style="display: none;"></ul>
+        <ul id="Clist" style="display: none;"></ul>
+    </div>
+    <script>
+        const closeBtn = document.getElementById('close');
+        closeBtn.addEventListener(
+            'click', () => {
+                document.getElementById('popup').style.display = "none";
+            })
+        function popup() {
+            document.getElementById('popup').style.display = "block";
+            document.getElementById('task').value = "";
+        }
+        function add() {
+            const task = document.getElementById('task');
+            const ul = document.getElementById('list');
+            const li = document.createElement("li")
+            if (!task.value.trim()) { return }
+            const taskText = task.value.trim();
+            li.innerHTML = `${taskText} <button class="delete">remove</button> <button class="complete">✅</button><button class="del">❌</button>`;
+            ul.appendChild(li)
+            li.querySelector(".delete").addEventListener(
+                'click', () => {
+                    li.remove()
+                }
+            )
+            li.querySelector(".complete").addEventListener(
+                'click', () => {
+                    const doneLi = document.createElement("li");
+                    doneLi.innerHTML = `${taskText} <button class="delete">remove</button>`
+                    document.getElementById('Clist').appendChild(doneLi)
+                    li.classList.toggle('done');
+                    doneLi.querySelector(".delete").addEventListener(
+                'click', () => {
+                    doneLi.remove()
+                }
+            )
+                })
+                li.querySelector(".del").addEventListener(
+                    'click', () => {
+                        const delLi = document.createElement("li")
+                        delLi.innerHTML = `${taskText} <button class="delete">remove</button>`
+                        document.getElementById('Dlist').appendChild(delLi);
+                        li.remove()  ;
+                        delLi.querySelector(".delete").addEventListener(
+                'click', () => {
+                    delLi.remove()
+                }
+            )
+                    }
+                )
+            document.getElementById('popup').style.display = "none";
+        }
+        const h1s = document.querySelectorAll('h1');
+        const uls = document.querySelectorAll('ul');
+        h1s.forEach(
+            MH => {
+                MH.addEventListener(
+                   'click', () => {
+                    h1s.forEach(i => i.classList.remove('active'));
+                    uls.forEach(i => i.style.display = "none");
+                    MH.classList.add('active');
+        if (MH.id === 'h1') {document.getElementById('list').style.display = "block"}
+       else if (MH.id === 'h2') {document.getElementById('Clist').style.display = "block"}
+       else if (MH.id === 'h3') {document.getElementById('Dlist').style.display = "block"}   
+                })})
+    </script>
+</body>
+
+</html>

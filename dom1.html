@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM1</title>
+</head>
+<body>
+    <p id="para">Wow! You are awesome</p>
+    <button id="change">Change the mood</button>
+   
+<script>
+    const line = document.getElementById('para');
+    const button = document.getElementById('change');
+    button.addEventListener(
+        'click' , () => {
+            line.innerText = "You are a fool";
+        } 
+        )
+       
+</script>
+</body>
+</html>
