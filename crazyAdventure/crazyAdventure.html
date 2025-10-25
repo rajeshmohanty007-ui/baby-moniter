@@ -13,21 +13,18 @@
         <button id="roll" style="width: 100px; height: 30px;">Roll</button>
         <div id="dice"></div>
     </div>
-    <div id="board"></div>
+    <div id="board"> <div id="win"><div id="close">x</div><p>Congratulations 🎉🎉<br>You won</p></div></div>
     <div id="player1"></div>
+   
 
     <script>
         let Q = 0;
         let p = 0;
         let specialCells = {
-            5: 35,
-            7: 13,
-            9: 2,
-            26: 58,
-            37: 25,
-            65: 45,
-            38: 61,
-            73: 84
+           4:16,
+           14:27,
+           37:57,
+           64:76
         }
         document.getElementById('roll').addEventListener(
             'click', () => {
@@ -45,6 +42,7 @@
                 document.getElementById('dice').classList.remove("rollAnimation");
                 let target = Q + p;
                 if (target > 100) { target = target - p }
+                if(target == 100){document.getElementById('win').style.display = "flex"}
                 let step = Q + 1;
                 const board = document.getElementById('board');
                 const player1 = document.getElementById('player1');
@@ -97,6 +95,9 @@
                 cell.textContent = i + 1;
                 document.getElementById('board').appendChild(cell);
             })
+            document.getElementById('close').addEventListener(
+                'click', ()=> {document.getElementById('win').style.display = "none"}
+            )
 
     </script>
 </body>
